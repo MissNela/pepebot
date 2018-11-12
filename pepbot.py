@@ -33,8 +33,8 @@ async def on_message(message):
 @client.command(pass_context = True)
 async def help():
     embed = discord.Embed(
-        title = "Help"
-        description = """
+        title = "Help",
+        description= """
         Here are all cmds!
         P!help
         Shows this message.
@@ -50,8 +50,10 @@ async def help():
         Shows Info about user.
         P!emojilist
         __Not done/No emojis found.__
-        """
-    color = discord.Color.dark_green()
+        Ping
+        Says :ping_pong: Pong!""",
+        
+        color = discord.Color.dark_green()
 )
     await client.say(embed=embed)
 
