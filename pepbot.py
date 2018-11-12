@@ -30,4 +30,4 @@ async def on_message(message):
         await client.send_message(message.channel, ":ping_pong: Pong!")
 
 
-bot.run(os.getenv("BOT_TOKEN"))
+client.run(os.getenv("BOT_TOKEN"))
