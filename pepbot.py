@@ -36,21 +36,21 @@ async def help():
         title = "Help",
         description= """
         Here are all cmds!
-        P!help
+        ``P!help``
         Shows this message.
-        P!warn
+       `` P!warn``
         Admin only/Warns a user.
-        P!ban 
+        ``P!ban ``
         Bans a user. Need Admin perms.
-        P!unban
+        ``P!unban``
         Unbans a use if not specified (unbans last user)
-        P!serverinfo
+        ``P!serverinfo``
         Shows Info about server.
-        P!userinfo
+       `` P!userinfo``
         Shows Info about user.
-        P!emojilist
+       `` P!emojilist``
         __Not done/No emojis found.__
-        Ping
+       `` Ping``
         Says :ping_pong: Pong!""",
         
         color = discord.Color.dark_green()
