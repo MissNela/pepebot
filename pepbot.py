@@ -18,6 +18,7 @@ from discord import Game, Embed, Color, Status, ChannelType
 
 
 client = commands.Bot(command_prefix = 'P!')
+client.remove_command('help')
 
 @client.event
 async def on_ready():
@@ -28,6 +29,31 @@ async def on_message(message):
     await client.process_commands(message)
     if message.content.startswith('Ping'):
         await client.send_message(message.channel, ":ping_pong: Pong!")
+
+@client.command(pass_context = True)
+async def help():
+    embed = discord.Embed(
+        title = "Help"
+        description = """
+        Here are all cmds!
+        P!help
+        Shows this message.
+        P!warn
+        Admin only/Warns a user.
+        P!ban 
+        Bans a user. Need Admin perms.
+        P!unban
+        Unbans a use if not specified (unbans last user)
+        P!serverinfo
+        Shows Info about server.
+        P!userinfo
+        Shows Info about user.
+        P!emojilist
+        __Not done/No emojis found.__
+        """
+    color = discord.Color.dark_green()
+)
+    await client.say(embed=embed)
 
 @client.command(pass_context = True)
 @commands.has_permissions(kick_members=True)     
@@ -80,6 +106,34 @@ async def ban(ctx,user:discord.Member):
         await client.say('ban failed.')
         return		 
 
+@client.command(pass_context=True)  
+@commands.has_permissions(kick_members=True)     
+
+async def serverinfo(ctx):
+    '''Displays Info About The Server!'''
+
+    server = ctx.message.server
+    roles = [x.name for x in server.role_hierarchy]
+    role_length = len(roles)
+
+    if role_length > 50: #Just in case there are too many roles...
+        roles = roles[:50]
+        roles.append('>>>> Displaying[50/%s] Roles'%len(roles))
+
+    roles = ', '.join(roles);
+    channelz = len(server.channels);
+    time = str(server.created_at); time = time.split(' '); time= time[0];
+    r, g, b = tuple(int(x * 255) for x in colorsys.hsv_to_rgb(random.random(), 1, 1))
+    join = discord.Embed(description= '%s '%(str(server)),title = 'Server Name', color = discord.Color((r << 16) + (g << 8) + b));
+    join.set_thumbnail(url = server.icon_url);
+    join.add_field(name = '__Owner__', value = str(server.owner) + '\n' + server.owner.id);
+    join.add_field(name = '__ID__', value = str(server.id))
+    join.add_field(name = '__Member Count__', value = str(server.member_count));
+    join.add_field(name = '__Text/Voice Channels__', value = str(channelz));
+    join.add_field(name = '__Roles (%s)__'%str(role_length), value = roles);
+    join.set_footer(text ='Created: %s'%time);
+
+    return await client.say(embed = join);
 
 
 @client.command(pass_context=True)  
